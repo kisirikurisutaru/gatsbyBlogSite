@@ -10,7 +10,7 @@ module.exports = {
     title: `ESSENTIALS`,
     description: `おいしい食材と食事を探求するサイト`,
     lang: `ja`,
-    siteUrl: `https://*****.netlify.app`,
+    siteUrl: `https://affectionate-varahamihira-9f9433.netlify.app`,
     locale: `ja_JP`,
     fbappid: `XXXXXXXXXXXXXXXXXXXXXX`,
   },
