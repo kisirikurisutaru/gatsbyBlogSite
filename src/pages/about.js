@@ -5,13 +5,23 @@ import Layout from "../components/layout"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUtensils, faCheckSquare } from "@fortawesome/free-solid-svg-icons"
+import SEO from "../components/seo"
+
 
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import { config } from "@fortawesome/fontawesome-svg-core"
 config.autoAddCss = false
 
-export default ({ data }) => (
+export default ({ data, location }) => (
   <Layout>
+    <SEO
+      pagetitle="ESSENTIALSについて"
+      pagedesc="食べ物についての情報を発信しているサイトです。"
+      pagepath={ location.pathname }
+      pageimg={data.about.childImageSharp.original.src}
+      pageimgw={data.about.childImageSharp.original.width}
+      pageimgh={data.about.childImageSharp.original.height}
+    />
     <div className="eyecatch">
       <figure>
       <Img fluid={data.about.childImageSharp.fluid} alt="ブルーベリー＆ヨーグルト" />
@@ -63,6 +73,11 @@ export const query = graphql`
       childImageSharp {
         fluid(maxWidth: 1600) {
           ...GatsbyImageSharpFluid_withWebp
+        }
+        original {
+          src
+          height
+          width
         }
       }
     }
