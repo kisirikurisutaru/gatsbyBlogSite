@@ -15,8 +15,8 @@ module.exports = {
     fbappid: `XXXXXXXXXXXXXXXXXXXXXX`,
   },
   plugins: [
-    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -37,6 +37,42 @@ module.exports = {
         icon: `src/images/icon.png`,
       },
     },
-    `gatsby-plugin-offline`
+    `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-source-microcms",
+      options: {
+        apiKey: process.env.microCMS_API_KEY,
+        serviceId: "yoshikinsei-blog",
+        endpoint: "blog",
+        query: {
+          limit: 100,
+        },
+      },
+    },
+
+    {
+      resolve: "gatsby-source-microcms",
+      options: {
+        apiKey: process.env.microCMS_API_KEY,
+        serviceId: "yoshikinsei-blog",
+        endpoint: "category",
+        query: {
+          limit: 100,
+        },
+      },
+    },
+    {
+      resolve: "gatsby-plugin-imgix",
+      options: {
+        domain: "images.microcms-assets.io",
+        fields: [
+          {
+            nodeType: "MicrocmsBlog",
+            fieldName: "featuredImage",
+            getUrl: node => node.eyecatch.url,
+          },
+        ],
+      },
+    },
   ],
 }

@@ -1,7 +1,8 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import Layout from "../components/layout"
+
 import SEO from "../components/seo"
 
 export default ({ data }) => (
@@ -44,7 +45,7 @@ export default ({ data }) => (
         <div className="details">
           <div className="detail">
             <figure>
-              <Img fluid={data.fruit.childImageSharp.fixed} alt="" />
+              <Img fluid={data.fruit.childImageSharp.fluid} alt="" />
             </figure>
             <h3>フルーツ</h3>
             <p>FRUIT</p>
@@ -56,7 +57,7 @@ export default ({ data }) => (
           </div>
           <div className="detail">
             <figure>
-              <Img fluid={data.grain.childImageSharp.fixed} alt="" />
+              <Img fluid={data.grain.childImageSharp.fluid} alt="" />
             </figure>
             <h3>穀物</h3>
             <p>GRAIN</p>
@@ -68,7 +69,7 @@ export default ({ data }) => (
           </div>
           <div className="detail">
             <figure>
-              <Img fluid={data.beverage.childImageSharp.fixed} alt="" />
+              <Img fluid={data.beverage.childImageSharp.fluid} alt="" />
             </figure>
             <h3>飲み物</h3>
             <p>BEVERAGE</p>
@@ -91,6 +92,28 @@ export default ({ data }) => (
         />
       </figure>
     </section>
+
+    <section>
+      <div className="container">
+        <h2 className="sr-only">RECENT POSTS</h2>
+        <div className="posts">
+          {data.allMicrocmsBlog.edges.map(({ node }) => (
+            <article className="post" key={node.id}>
+              <Link to={`/blog/post/${node.slug}/`}>
+                <figure>
+                <Img
+                    fluid={node.fields.featuredImage.fluid}
+                    alt=""
+                    style={{ height: "100%" }}
+                  />
+                </figure>
+                <h3>{node.title}</h3>
+              </Link>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   </Layout>
 )
 
@@ -105,22 +128,22 @@ export const query = graphql`
     }
     fruit: file(relativePath: { eq: "fruit.jpg" }) {
       childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_withWebp
+        fluid(maxWidth: 320) {
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
     grain: file(relativePath: { eq: "grain.jpg" }) {
       childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_withWebp
+        fluid(maxWidth: 320) {
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
     beverage: file(relativePath: { eq: "beverage.jpg" }) {
       childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_withWebp
+        fluid(maxWidth: 320) {
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
@@ -135,6 +158,34 @@ export const query = graphql`
       childImageSharp {
         fluid(maxWidth: 1920, quality: 90) {
           ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+    allMicrocmsBlog(
+      sort: { order: DESC, fields: publishDate }
+      skip: 0
+      limit: 4
+    ) {
+      edges {
+        node {
+          title
+          id
+          slug
+          eyecatch {
+            url
+          }
+          fields {
+            featuredImage {
+              fluid(maxWidth: 573) {
+                base64
+          aspectRatio
+          src
+          srcSet
+          srcSetWebp
+          sizes
+              }
+            }
+          }
         }
       }
     }

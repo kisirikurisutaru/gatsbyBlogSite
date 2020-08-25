@@ -5,7 +5,6 @@ export default () => (
   <header className="header">
     <div className="container">
       <div className="site">
-        <Link to={`/`}></Link>
         <Link to={`/`}>
           <svg xmlns="http://www.w3.org/2000/svg" width="225.65" height="46.59">
             <defs></defs>
@@ -24,6 +23,9 @@ export default () => (
           </li>
           <li>
           <Link to={`/about/`}>ABOUT</Link>
+          </li>
+          <li>
+          <Link to={`/blog/`}>BLOG</Link>
           </li>
         </ul>
       </nav>
