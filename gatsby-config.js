@@ -41,7 +41,7 @@ module.exports = {
     {
       resolve: "gatsby-source-microcms",
       options: {
-        apiKey: process.env.microCMS_API_KEY,
+        apiKey: "b22dddab-6afb-406c-bca5-3879b6f8fdab",
         serviceId: "yoshikinsei-blog",
         endpoint: "blog",
         query: {
@@ -53,7 +53,7 @@ module.exports = {
     {
       resolve: "gatsby-source-microcms",
       options: {
-        apiKey: process.env.microCMS_API_KEY,
+        apiKey: "b22dddab-6afb-406c-bca5-3879b6f8fdab",
         serviceId: "yoshikinsei-blog",
         endpoint: "category",
         query: {
